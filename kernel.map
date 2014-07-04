@@ -1,0 +1,273 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD build/controllerinstances.o
+LOAD build/control.o
+LOAD build/drawboard.o
+LOAD build/drawing.o
+LOAD build/ingamemenu.o
+LOAD build/inttostring.o
+LOAD build/jtag.o
+LOAD build/main.o
+LOAD build/menu.o
+LOAD build/moveboard.o
+LOAD build/shapes.o
+
+.init           0x0000000000008000        0x4
+ *(.init)
+ .init          0x0000000000008000        0x4 build/main.o
+                0x0000000000008000                _start
+
+.data           0x0000000000009080     0x2000
+ *(.data)
+ .data          0x0000000000009080        0x0 build/controllerinstances.o
+ .data          0x0000000000009080        0x0 build/control.o
+ .data          0x0000000000009080      0x2e0 build/drawboard.o
+                0x0000000000009080                KeyCount
+                0x0000000000009084                ActionCount
+                0x0000000000009088                CharLocation
+                0x000000000000908c                InitalCharLocation
+                0x0000000000009090                StartLocationDrawn
+                0x00000000000090a0                KeyCountString
+                0x00000000000090a2                KeysString
+                0x00000000000090a8                ActionCountString
+                0x00000000000090ac                ActionCountStringTwo
+                0x00000000000090af                ActionCountStringOne
+                0x00000000000090b1                ActionString
+                0x00000000000090c4                YouPerish
+                0x00000000000090fa                GameOver
+                0x0000000000009104                YouEscaped
+                0x0000000000009136                YoureWinner
+                0x000000000000913e                LegendText
+                0x0000000000009146                KeyLegendText
+                0x000000000000914a                DoorLegendText
+                0x000000000000914f                ExitLegendText
+                0x0000000000009154                CharLegendText
+                0x000000000000915e                originalLayoutArray
+                0x000000000000925e                layoutArray
+ *fill*         0x0000000000009360      0xca0 3f3f3f3f
+ .data          0x000000000000a000     0x1000 build/drawing.o
+                0x000000000000a000                FrameBufferInfo
+                0x000000000000a030                FrameBufferPointer
+ .data          0x000000000000b000       0x20 build/ingamemenu.o
+                0x000000000000b000                inGameSelected
+                0x000000000000b004                GameMenu
+                0x000000000000b00e                RestartGame
+                0x000000000000b01b                Quit
+ .data          0x000000000000b020        0x0 build/inttostring.o
+ .data          0x000000000000b020        0x0 build/jtag.o
+ .data          0x000000000000b020        0x0 build/main.o
+ .data          0x000000000000b020       0x60 build/menu.o
+                0x000000000000b020                MainMenu
+                0x000000000000b02a                StartGame
+                0x000000000000b035                QuitGame
+                0x000000000000b03f                GameName
+                0x000000000000b051                Creators
+                0x000000000000b06d                mainMenuSelected
+ .data          0x000000000000b080        0x0 build/moveboard.o
+ .data          0x000000000000b080        0x0 build/shapes.o
+ *.c.o(*)
+
+.igot.plt       0x000000000000b080        0x0
+ .igot.plt      0x0000000000000000        0x0 build/controllerinstances.o
+
+.text           0x000000000000b080     0x128c
+ *.c.o(.text)
+ *(.text)
+ .text          0x000000000000b080      0x264 build/controllerinstances.o
+                0x000000000000b080                InGameMenuControl
+                0x000000000000b12c                MainMenuControl
+                0x000000000000b1b4                GameControl
+                0x000000000000b280                LongDelayLoop
+                0x000000000000b29c                ExtraLongDelayLoop
+ .text          0x000000000000b2e4      0x174 build/control.o
+                0x000000000000b2e4                InitCont
+                0x000000000000b344                ReadData
+                0x000000000000b370                WriteClock
+                0x000000000000b394                WriteLatch
+                0x000000000000b3b8                ReadFromCont
+                0x000000000000b428                Wait
+ .text          0x000000000000b458      0x4b8 build/drawboard.o
+                0x000000000000b458                NewBoard
+                0x000000000000b4b4                DrawBoard
+                0x000000000000b574                DrawGrass
+                0x000000000000b584                DrawWall
+                0x000000000000b594                DrawKey
+                0x000000000000b5a4                DrawDoor
+                0x000000000000b5b4                DrawCharacter
+                0x000000000000b5c4                DrawExit
+                0x000000000000b5d4                CellPixels
+                0x000000000000b614                DrawGrid
+                0x000000000000b674                DrawKeys
+                0x000000000000b6dc                DrawActions
+                0x000000000000b76c                YouLose
+                0x000000000000b7c8                YouWin
+                0x000000000000b824                DrawStart
+                0x000000000000b880                DrawCellRow
+ .text          0x000000000000b910      0x228 build/drawing.o
+                0x000000000000b910                InitFrameBuffer
+                0x000000000000b958                DrawPixel
+                0x000000000000b99c                MailboxWrite
+                0x000000000000b9cc                MailboxRead
+                0x000000000000ba00                DrawChars
+                0x000000000000ba5c                DrawSentance
+                0x000000000000baa4                DrawSelector
+                0x000000000000bae8                ClearScreen
+ .text          0x000000000000bb38      0x1a0 build/ingamemenu.o
+                0x000000000000bb38                DrawInGameMenu
+                0x000000000000bc28                MoveGameMenuSelect
+ .text          0x000000000000bcd8      0x12c build/inttostring.o
+                0x000000000000bcd8                IntToString
+                0x000000000000bd30                DivideTwoNum
+                0x000000000000bd78                ModularDivision
+                0x000000000000bda4                FlipString
+                0x000000000000bde4                StringLength
+ .text          0x000000000000be04       0x8c build/jtag.o
+                0x000000000000be04                EnableJTAG
+ .text          0x000000000000be90       0x30 build/main.o
+                0x000000000000bea0                mainMenu$
+                0x000000000000beb0                startGame$
+ .text          0x000000000000bec0      0x11c build/menu.o
+                0x000000000000bec0                DrawMenus
+                0x000000000000bf3c                MainMenuSelect
+ .text          0x000000000000bfdc      0x278 build/moveboard.o
+                0x000000000000bfdc                ActionKey
+                0x000000000000c09c                MoveLeft
+                0x000000000000c0cc                MoveRight
+                0x000000000000c0fc                MoveUp
+                0x000000000000c12c                MoveDown
+                0x000000000000c15c                MoveCheck
+                0x000000000000c1cc                Moved
+                0x000000000000c21c                ActionSubtract
+ .text          0x000000000000c254       0xb8 build/shapes.o
+                0x000000000000c254                DrawSquare
+                0x000000000000c2a4                DrawLineY
+                0x000000000000c2d8                DrawLineX
+OUTPUT(build/output.elf elf32-littlearm)
+
+.glue_7         0x000000000000c30c        0x0
+ .glue_7        0x0000000000000000        0x0 linker stubs
+
+.glue_7t        0x000000000000c30c        0x0
+ .glue_7t       0x0000000000000000        0x0 linker stubs
+
+.vfp11_veneer   0x000000000000c30c        0x0
+ .vfp11_veneer  0x0000000000000000        0x0 linker stubs
+
+.v4_bx          0x000000000000c30c        0x0
+ .v4_bx         0x0000000000000000        0x0 linker stubs
+
+.iplt           0x000000000000c30c        0x0
+ .iplt          0x0000000000000000        0x0 build/controllerinstances.o
+
+.rel.dyn        0x000000000000c30c        0x0
+ .rel.iplt      0x0000000000000000        0x0 build/controllerinstances.o
+
+.bss            0x000000000000c30c        0x0
+ .bss           0x000000000000c30c        0x0 build/controllerinstances.o
+ .bss           0x000000000000c30c        0x0 build/control.o
+ .bss           0x000000000000c30c        0x0 build/drawboard.o
+ .bss           0x000000000000c30c        0x0 build/drawing.o
+ .bss           0x000000000000c30c        0x0 build/ingamemenu.o
+ .bss           0x000000000000c30c        0x0 build/inttostring.o
+ .bss           0x000000000000c30c        0x0 build/jtag.o
+ .bss           0x000000000000c30c        0x0 build/main.o
+ .bss           0x000000000000c30c        0x0 build/menu.o
+ .bss           0x000000000000c30c        0x0 build/moveboard.o
+ .bss           0x000000000000c30c        0x0 build/shapes.o
+
+.ARM.attributes
+                0x0000000000000000       0x26
+ .ARM.attributes
+                0x0000000000000000       0x26 build/controllerinstances.o
+ .ARM.attributes
+                0x0000000000000026       0x26 build/control.o
+ .ARM.attributes
+                0x000000000000004c       0x26 build/drawboard.o
+ .ARM.attributes
+                0x0000000000000072       0x26 build/drawing.o
+ .ARM.attributes
+                0x0000000000000098       0x26 build/ingamemenu.o
+ .ARM.attributes
+                0x00000000000000be       0x26 build/inttostring.o
+ .ARM.attributes
+                0x00000000000000e4       0x26 build/jtag.o
+ .ARM.attributes
+                0x000000000000010a       0x26 build/main.o
+ .ARM.attributes
+                0x0000000000000130       0x26 build/menu.o
+ .ARM.attributes
+                0x0000000000000156       0x26 build/moveboard.o
+ .ARM.attributes
+                0x000000000000017c       0x26 build/shapes.o
+
+.debug_line     0x0000000000000000      0x838
+ .debug_line    0x0000000000000000       0xfc build/controllerinstances.o
+ .debug_line    0x00000000000000fc       0xb0 build/control.o
+ .debug_line    0x00000000000001ac      0x1af build/drawboard.o
+ .debug_line    0x000000000000035b       0xeb build/drawing.o
+ .debug_line    0x0000000000000446       0xb7 build/ingamemenu.o
+ .debug_line    0x00000000000004fd       0x96 build/inttostring.o
+ .debug_line    0x0000000000000593       0x61 build/jtag.o
+ .debug_line    0x00000000000005f4       0x55 build/main.o
+ .debug_line    0x0000000000000649       0x8a build/menu.o
+ .debug_line    0x00000000000006d3       0xf5 build/moveboard.o
+ .debug_line    0x00000000000007c8       0x70 build/shapes.o
+
+.debug_info     0x0000000000000000      0x413
+ .debug_info    0x0000000000000000       0x6a build/controllerinstances.o
+ .debug_info    0x000000000000006a       0x5e build/control.o
+ .debug_info    0x00000000000000c8       0x60 build/drawboard.o
+ .debug_info    0x0000000000000128       0x5e build/drawing.o
+ .debug_info    0x0000000000000186       0x61 build/ingamemenu.o
+ .debug_info    0x00000000000001e7       0x62 build/inttostring.o
+ .debug_info    0x0000000000000249       0x5b build/jtag.o
+ .debug_info    0x00000000000002a4       0x57 build/main.o
+ .debug_info    0x00000000000002fb       0x5b build/menu.o
+ .debug_info    0x0000000000000356       0x60 build/moveboard.o
+ .debug_info    0x00000000000003b6       0x5d build/shapes.o
+
+.debug_abbrev   0x0000000000000000       0xda
+ .debug_abbrev  0x0000000000000000       0x14 build/controllerinstances.o
+ .debug_abbrev  0x0000000000000014       0x14 build/control.o
+ .debug_abbrev  0x0000000000000028       0x14 build/drawboard.o
+ .debug_abbrev  0x000000000000003c       0x14 build/drawing.o
+ .debug_abbrev  0x0000000000000050       0x14 build/ingamemenu.o
+ .debug_abbrev  0x0000000000000064       0x14 build/inttostring.o
+ .debug_abbrev  0x0000000000000078       0x14 build/jtag.o
+ .debug_abbrev  0x000000000000008c       0x12 build/main.o
+ .debug_abbrev  0x000000000000009e       0x14 build/menu.o
+ .debug_abbrev  0x00000000000000b2       0x14 build/moveboard.o
+ .debug_abbrev  0x00000000000000c6       0x14 build/shapes.o
+
+.debug_aranges  0x0000000000000000      0x168
+ .debug_aranges
+                0x0000000000000000       0x20 build/controllerinstances.o
+ .debug_aranges
+                0x0000000000000020       0x20 build/control.o
+ .debug_aranges
+                0x0000000000000040       0x20 build/drawboard.o
+ .debug_aranges
+                0x0000000000000060       0x20 build/drawing.o
+ .debug_aranges
+                0x0000000000000080       0x20 build/ingamemenu.o
+ .debug_aranges
+                0x00000000000000a0       0x20 build/inttostring.o
+ .debug_aranges
+                0x00000000000000c0       0x20 build/jtag.o
+ .debug_aranges
+                0x00000000000000e0       0x28 build/main.o
+ .debug_aranges
+                0x0000000000000108       0x20 build/menu.o
+ .debug_aranges
+                0x0000000000000128       0x20 build/moveboard.o
+ .debug_aranges
+                0x0000000000000148       0x20 build/shapes.o
+
+.debug_ranges   0x0000000000000000       0x20
+ .debug_ranges  0x0000000000000000       0x20 build/main.o
